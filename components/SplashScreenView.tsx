@@ -1,6 +1,37 @@
 import { Box, Button, Flex, Heading } from '@chakra-ui/react';
+import axios from 'axios';
+import uniqid from 'uniqid';
 
 const SplashScreenView = () => {
+  const handleAnonymousUser = () => {
+    const anonymousUserID = uniqid() + uniqid() + uniqid();
+
+    axios({
+      method: 'post',
+      url: 'https://thebetter.bsgroup.eu/Authorization/SignIn',
+      headers: { 'Content-Type': 'application/json' },
+      data: {
+        Device: {
+          PlatformCode: 'WEB',
+          Name: anonymousUserID,
+        },
+      },
+    })
+      .then((res) => {
+        localStorage.setItem(
+          'AnonymousToken',
+          JSON.stringify(res.data.AuthorizationToken.Token)
+        );
+        localStorage.setItem(
+          'TokenExpiresDate',
+          JSON.stringify(res.data.AuthorizationToken.TokenExpires)
+        );
+
+        return res;
+      })
+      .catch((err) => console.error(err));
+  };
+
   return (
     <Box height={'100vh'} minW={'450px'}>
       <Flex
@@ -23,8 +54,13 @@ const SplashScreenView = () => {
           >
             Login
           </Button>
-          <Button variant={'solid'} colorScheme={'blue'} fontSize={'0.8em'}>
-            Check Anonymously
+          <Button
+            variant={'solid'}
+            colorScheme={'blue'}
+            fontSize={'0.8em'}
+            onClick={() => handleAnonymousUser()}
+          >
+            Login Anonymously
           </Button>
         </Flex>
       </Flex>
