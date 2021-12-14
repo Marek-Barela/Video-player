@@ -1,7 +1,7 @@
 import { Box, Button, Flex, Heading } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 
-const HomeScreenView = () => {
+const HomeView = () => {
   const router = useRouter();
 
   const handleLogoutCLick = () => {
@@ -41,4 +41,4 @@ const HomeScreenView = () => {
   );
 };
 
-export default HomeScreenView;
+export default HomeView;

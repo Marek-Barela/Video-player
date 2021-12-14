@@ -1,13 +1,11 @@
 import { Box, Button, Flex, Heading } from '@chakra-ui/react';
 import axios from 'axios';
-import { useUserIsAuthenticated } from 'common/hooks/userIsAuthenticated';
-import HomeScreenView from 'components/HomeScreenView';
 import { useRouter } from 'next/router';
 import uniqid from 'uniqid';
 
-const SplashScreenView = () => {
+const SplashView = () => {
   const router = useRouter();
-  const { isAuthenticated } = useUserIsAuthenticated();
+
   const handleAnonymousUser = () => {
     const anonymousUserID = uniqid() + uniqid() + uniqid();
 
@@ -36,7 +34,7 @@ const SplashScreenView = () => {
       .catch((err) => console.error(err));
   };
 
-  return !isAuthenticated ? (
+  return (
     <Box height={'100vh'} minW={'450px'}>
       <Flex
         as={'nav'}
@@ -85,9 +83,7 @@ const SplashScreenView = () => {
         </Heading>
       </Flex>
     </Box>
-  ) : (
-    <HomeScreenView />
   );
 };
 
-export default SplashScreenView;
+export default SplashView;

@@ -1,14 +1,13 @@
 import { Box } from '@chakra-ui/react';
+import LandingPageView from 'components/LandingPageView';
 import type { NextPage } from 'next';
 
-import SplashScreenView from '../components/SplashScreenView';
-
-const SplashScreenPage: NextPage = () => {
+const LandingPage: NextPage = () => {
   return (
     <Box>
-      <SplashScreenView />
+      <LandingPageView />
     </Box>
   );
 };
 
-export default SplashScreenPage;
+export default LandingPage;
