@@ -1,4 +1,4 @@
-import { Box, Button,Flex } from '@chakra-ui/react';
+import { Box, Button, Flex, Text } from '@chakra-ui/react';
 import axios from 'axios';
 import Navigation from 'components/Navigation';
 import { useRouter } from 'next/router';
@@ -59,12 +59,18 @@ const PlayerView = () => {
               Back
             </Button>
           </Flex>
-          <ReactPlayer
-            url={playerData?.ContentUrl}
-            width={'100%'}
-            height={'100%'}
-            controls={true}
-          />
+          {playerData?.ContentUrl ? (
+            <ReactPlayer
+              url={playerData?.ContentUrl}
+              width={'100%'}
+              height={'100%'}
+              controls={true}
+            />
+          ) : (
+            <Flex>
+              <Text>This resource do not contain a video try others</Text>
+            </Flex>
+          )}
         </Flex>
       </Flex>
     </Box>
