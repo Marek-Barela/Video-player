@@ -1,8 +1,14 @@
 import { Box } from '@chakra-ui/react';
 import type { NextPage } from 'next';
 
-const Home: NextPage = () => {
-  return <Box>Hello Video App</Box>;
+import SplashScreenView from '../components/SplashScreenView';
+
+const SplashScreenPage: NextPage = () => {
+  return (
+    <Box>
+      <SplashScreenView />
+    </Box>
+  );
 };
 
-export default Home;
+export default SplashScreenPage;
