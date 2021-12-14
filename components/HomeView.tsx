@@ -1,9 +1,9 @@
-import { Box, Flex, Spinner, Text, Button } from '@chakra-ui/react';
+import { Box, Button,Flex, Spinner, Text } from '@chakra-ui/react';
 import Navigation from 'components/Navigation';
 import type { EntityItem } from 'components/Swiper';
 import Swiper from 'components/Swiper';
-import { useState } from 'react';
 import { useRouter } from 'next/router';
+import { useState } from 'react';
 
 const HomeView = () => {
   const [heroData, setHeroData] = useState<EntityItem>();
@@ -52,7 +52,7 @@ const HomeView = () => {
               width={150}
               mt="20px"
               colorScheme={'blue'}
-              onClick={() => router.push('/player')}
+              onClick={() => router.push(`/player/${heroData?.Id}`)}
             >
               Watch
             </Button>
