@@ -1,7 +1,7 @@
 import 'swiper/css';
 import 'swiper/css/pagination';
 
-import { Box, Flex,Spinner, Text } from '@chakra-ui/react';
+import { Box, Flex, Spinner } from '@chakra-ui/react';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Pagination } from 'swiper';
@@ -21,7 +21,7 @@ interface Image {
   Width: number;
 }
 
-interface EntityItem {
+export interface EntityItem {
   AvailableFrom: string;
   Description: string;
   Guid: string;
@@ -51,9 +51,15 @@ type MediaData = {
 
 interface SwiperBoxProps {
   id: number;
+  setHeroData: (item: EntityItem) => void;
+  initialInstance?: boolean;
 }
 
-const SwiperBox = ({ id }: SwiperBoxProps) => {
+const SwiperBox = ({
+  id,
+  setHeroData,
+  initialInstance = false,
+}: SwiperBoxProps) => {
   const [videoData, setVideoData] = useState<MediaData>();
 
   useEffect(() => {
@@ -69,7 +75,7 @@ const SwiperBox = ({ id }: SwiperBoxProps) => {
       },
       data: {
         MediaListId: id,
-        IncludeCategories: false,
+        IncludeCategories: true,
         IncludeImages: true,
         IncludeMedia: true,
         PageNumber: 1,
@@ -80,7 +86,11 @@ const SwiperBox = ({ id }: SwiperBoxProps) => {
       .catch((err) => console.error(err));
   }, []);
 
-  console.log(videoData);
+  useEffect(() => {
+    if (videoData && initialInstance) {
+      setHeroData(videoData?.Entities[0]);
+    }
+  }, [videoData]);
 
   return (
     <Box margin={'30px'}>
@@ -93,16 +103,16 @@ const SwiperBox = ({ id }: SwiperBoxProps) => {
         {videoData ? (
           videoData?.Entities?.map((item) => (
             <SwiperSlide key={item.Guid}>
-              {item?.Images[0]?.Url ? (
-                <Box
-                  bgImage={item.Images[0].Url}
-                  minH={'300px'}
-                  bgSize={'cover'}
-                  borderRadius={'10px'}
-                />
-              ) : (
-                <Text>No Image</Text>
-              )}
+              <Box
+                bgImage={
+                  item?.Images[0]?.Url || 'https://via.placeholder.com/400'
+                }
+                minH={'300px'}
+                bgSize={'cover'}
+                borderRadius={'10px'}
+                onClick={() => setHeroData(item)}
+                _hover={{ opacity: 0.8, cursor: 'pointer' }}
+              />
             </SwiperSlide>
           ))
         ) : (
