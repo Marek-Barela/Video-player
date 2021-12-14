@@ -1,11 +1,13 @@
-import { Box, Flex, Spinner, Text } from '@chakra-ui/react';
+import { Box, Flex, Spinner, Text, Button } from '@chakra-ui/react';
 import Navigation from 'components/Navigation';
 import type { EntityItem } from 'components/Swiper';
 import Swiper from 'components/Swiper';
 import { useState } from 'react';
+import { useRouter } from 'next/router';
 
 const HomeView = () => {
   const [heroData, setHeroData] = useState<EntityItem>();
+  const router = useRouter();
 
   return (
     <Box minH={'100vh'}>
@@ -45,6 +47,15 @@ const HomeView = () => {
             >
               {heroData.Description}
             </Text>
+            <Button
+              fontSize={'0.8em'}
+              width={150}
+              mt="20px"
+              colorScheme={'blue'}
+              onClick={() => router.push('/player')}
+            >
+              Watch
+            </Button>
           </Flex>
           <Flex width={'50%'}></Flex>
         </Flex>
