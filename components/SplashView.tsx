@@ -18,7 +18,7 @@ const SplashView = () => {
           width={{ base: '400px', md: '600px', lg: '800px' }}
           textAlign={'center'}
         >
-          Greaat standard for online video hosting
+          Great standard for online video hosting
         </Heading>
       </Flex>
     </Box>
