@@ -1,12 +1,15 @@
-import { Button, Flex, Heading } from '@chakra-ui/react';
+import { Button, Flex, Heading, Text } from '@chakra-ui/react';
 import axios from 'axios';
 import { useUserIsAuthenticated } from 'common/hooks/userIsAuthenticated';
 import { useRouter } from 'next/router';
 import uniqid from 'uniqid';
+import { useContext } from 'react';
+import AuthContext from 'context/AuthContext';
 
 const Navigation = () => {
   const router = useRouter();
   const { isAuthenticated } = useUserIsAuthenticated();
+  const { user, logout } = useContext(AuthContext);
 
   const handleAnonymousUser = () => {
     const anonymousUserID = uniqid() + uniqid() + uniqid();
@@ -38,8 +41,7 @@ const Navigation = () => {
   const handleLogoutCLick = () => {
     Promise.all([])
       .then(() => {
-        localStorage.removeItem('Token');
-        localStorage.removeItem('TokenExpiresDate');
+        logout();
       })
       .then(() => router.push('/'));
   };
@@ -64,6 +66,7 @@ const Navigation = () => {
               variant={'outline'}
               colorScheme={'blue'}
               fontSize={'0.8em'}
+              onClick={() => router.push('/login')}
             >
               Login
             </Button>
@@ -78,6 +81,7 @@ const Navigation = () => {
           </>
         ) : (
           <>
+            <Text mr="20px">Hello {user?.FullName || ''}</Text>
             <Button
               variant={'solid'}
               colorScheme={'blue'}
